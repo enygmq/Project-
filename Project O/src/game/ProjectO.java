@@ -12,7 +12,7 @@ public class ProjectO extends Canvas implements Runnable {
 	public static int height = width / 16 * 9;
 	public static int scale = 3;
 	
-	private static JFrame frame;
+	private JFrame frame;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -20,6 +20,8 @@ public class ProjectO extends Canvas implements Runnable {
 	public ProjectO() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
+		
+		frame = new JFrame();
 	}
 	
 	public synchronized void start() {
@@ -44,11 +46,17 @@ public class ProjectO extends Canvas implements Runnable {
 	}
 	
 	public static void main(String[] args) {
-		frame.setSize(new Dimension(width * scale, height * scale));
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		ProjectO game = new ProjectO();
+		
+		game.frame.setResizable(false);
+		game.frame.setTitle("Project O - a platformer");
+		game.frame.add(game);
+		game.frame.pack();
+		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.frame.setLocationRelativeTo(null);
+		game.frame.setVisible(true);
+	
+		game.start();
 	}
 
 }
